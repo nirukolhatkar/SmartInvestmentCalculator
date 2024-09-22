@@ -174,15 +174,48 @@ def calculate_financial(output_variable, **inputs):
 
 
 # Streamlit web app
-st.title('SIP Calculator')
 
-output_variable = st.selectbox('Output:', ['Expected Corpus', 'Initial Investment', 'Rate of Return', 'Number of Years', 'SIP Amount', 'Step-up Percentage'])
-initial_investment = st.number_input('Initial Investment:', min_value=0)
-rate_of_return = st.number_input('Rate of Return (%):', min_value=0.0)
-years = st.number_input('Years:', min_value=0)
-sip_amount = st.number_input('SIP Amount:', min_value=0)
-stepup_percentage = st.number_input('Step-up (%):', min_value=0.0)
-corpus = st.number_input('Expected Corpus:', min_value=0)
+st.title('Smart Investment Calculator')
+
+output_variable = st.selectbox('Output:', [
+    'Expected Corpus',
+    'Initial Investment',
+    'Rate of Return',
+    'Number of Years',
+    'SIP Amount',
+    'Step-up Percentage'
+])
+
+# Conditional rendering based on the selected output variable
+if output_variable != 'Expected Corpus':
+    corpus = st.number_input('Expected Corpus:', min_value=0)
+else:
+    corpus = 0  # Hide the input by setting it to 0 or a default value
+
+if output_variable != 'Initial Investment':
+    initial_investment = st.number_input('Initial Investment:', min_value=0)
+else:
+    initial_investment = 0  # Hide the input by setting it to 0 or a default value
+
+if output_variable != 'Rate of Return':
+    rate_of_return = st.number_input('Rate of Return (%):', min_value=0.0)
+else:
+    rate_of_return = 0  # Hide the input
+
+if output_variable != 'Number of Years':
+    years = st.number_input('Years:', min_value=0)
+else:
+    years = 0  # Hide the input
+
+if output_variable != 'SIP Amount':
+    sip_amount = st.number_input('SIP Amount:', min_value=0)
+else:
+    sip_amount = 0  # Hide the input
+
+if output_variable != 'Step-up Percentage':
+    stepup_percentage = st.number_input('Step-up (%):', min_value=0.0)
+else:
+    stepup_percentage = 0  # Hide the input
 
 inputs = {
     'initial_investment': initial_investment,
