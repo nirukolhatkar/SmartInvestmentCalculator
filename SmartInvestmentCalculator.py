@@ -187,35 +187,13 @@ output_variable = st.selectbox('Output:', [
 ])
 
 # Conditional rendering based on the selected output variable
-if output_variable != 'Expected Corpus':
-    corpus = st.number_input('Expected Corpus:', min_value=0)
-else:
-    corpus = 0  # Hide the input by setting it to 0 or a default value
+corpus = st.number_input('Expected Corpus:', min_value=0) if output_variable != 'Expected Corpus' else 0
+initial_investment = st.number_input('Initial Investment:', min_value=0) if output_variable != 'Initial Investment' else 0
+rate_of_return = st.number_input('Rate of Return (%):', min_value=0.0) if output_variable != 'Rate of Return' else 0
+years = st.number_input('Years:', min_value=0) if output_variable != 'Number of Years' else 0
+sip_amount = st.number_input('SIP Amount:', min_value=0) if output_variable != 'SIP Amount' else 0
+stepup_percentage = st.number_input('Step-up (%):', min_value=0.0) if output_variable != 'Step-up Percentage' else 0
 
-if output_variable != 'Initial Investment':
-    initial_investment = st.number_input('Initial Investment:', min_value=0)
-else:
-    initial_investment = 0  # Hide the input by setting it to 0 or a default value
-
-if output_variable != 'Rate of Return':
-    rate_of_return = st.number_input('Rate of Return (%):', min_value=0.0)
-else:
-    rate_of_return = 0  # Hide the input
-
-if output_variable != 'Number of Years':
-    years = st.number_input('Years:', min_value=0)
-else:
-    years = 0  # Hide the input
-
-if output_variable != 'SIP Amount':
-    sip_amount = st.number_input('SIP Amount:', min_value=0)
-else:
-    sip_amount = 0  # Hide the input
-
-if output_variable != 'Step-up Percentage':
-    stepup_percentage = st.number_input('Step-up (%):', min_value=0.0)
-else:
-    stepup_percentage = 0  # Hide the input
 
 inputs = {
     'initial_investment': initial_investment,
@@ -226,6 +204,18 @@ inputs = {
     'corpus': corpus,
 }
 
+# Mapping of output variable to input keys
+output_variable_mapping = {
+    'Expected Corpus': 'corpus',
+    'Initial Investment': 'initial_investment',
+    'Rate of Return': 'rate_of_return',
+    'Number of Years': 'years',
+    'SIP Amount': 'sip_amount',
+    'Step-up Percentage': 'stepup_percentage'
+}
+
 if st.button('Calculate'):
-    result = calculate_financial(output_variable.lower().replace(" ", "_"), **inputs)
+    # Use the mapping to get the correct key for the output variable
+    output_key = output_variable_mapping[output_variable]
+    result = calculate_financial(output_key, **inputs)
     st.write(f"Result: {result}")
