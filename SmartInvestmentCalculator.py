@@ -227,5 +227,5 @@ inputs = {
 }
 
 if st.button('Calculate'):
-    result = calculate_financial(output_variable.lower(), **inputs)
+    result = calculate_financial(output_variable.lower().replace(" ", "_"), **inputs)
     st.write(f"Result: {result}")
